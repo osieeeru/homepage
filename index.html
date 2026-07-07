@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>オシエール | 教えることは、いちばんの学びかた</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FDFBF6;
+    --cream: #F1E8D6;
+    --forest: #2D5A4F;
+    --forest-deep: #1B3A32;
+    --mint: #6B8F7F;
+    --marker: #F2A65A;
+    --marker-deep: #E08A38;
+    --ink: #1F2A24;
+    --ink-soft: #4A5952;
+    --line: #D8CDB4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  .heading {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    color: var(--forest-deep);
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* background paper texture */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(107,143,127,0.05) 0, transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(242,166,90,0.06) 0, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 251, 246, 0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: var(--forest-deep);
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .logo-dot { color: var(--marker); }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .nav-links a { position: relative; padding: 4px 0; }
+  .nav-links a:hover { color: var(--forest); }
+  .nav-cta {
+    background: var(--forest);
+    color: var(--paper) !important;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .nav-cta:hover { background: var(--forest-deep); transform: translateY(-1px); }
+  .nav-mobile-hide { display: flex; }
+  @media (max-width: 760px) {
+    .nav-links.nav-mobile-hide { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 96px 32px 80px;
+    position: relative;
+  }
+  .hero-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--marker-deep);
+    background: rgba(242,166,90,0.14);
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+    letter-spacing: 0.03em;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--marker);
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+  }
+  .hero h1 .accent { color: var(--marker-deep); }
+  .hero p.lead {
+    margin-top: 24px;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .hero-ctas {
+    margin-top: 36px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--marker);
+    color: var(--forest-deep);
+    font-weight: 700;
+    padding: 15px 30px;
+    border-radius: 999px;
+    font-size: 0.98rem;
+    box-shadow: 0 6px 0 var(--marker-deep);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(2px); box-shadow: 0 4px 0 var(--marker-deep); }
+  .btn-secondary {
+    border: 2px solid var(--forest);
+    color: var(--forest-deep);
+    font-weight: 700;
+    padding: 13px 28px;
+    border-radius: 999px;
+    font-size: 0.98rem;
+    transition: background 0.15s ease;
+  }
+  .btn-secondary:hover { background: rgba(45,90,79,0.08); }
+
+  .hero-safety {
+    margin-top: 28px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-safety svg { flex-shrink: 0; }
+
+  /* ---------- Sticky note cluster (signature) ---------- */
+  .note-cluster {
+    position: relative;
+    height: 420px;
+  }
+  .sticky {
+    position: absolute;
+    width: 200px;
+    padding: 20px 18px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    box-shadow: 0 10px 24px rgba(31,42,36,0.14);
+    border-radius: 4px 4px 4px 22px;
+  }
+  .sticky::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    width: 40px;
+    height: 18px;
+    background: rgba(255,255,255,0.55);
+    border-radius: 2px;
+    transform: rotate(-4deg);
+  }
+  .s1 {
+    background: var(--marker);
+    color: var(--forest-deep);
+    top: 0; left: 30px;
+    transform: rotate(-6deg);
+    z-index: 3;
+  }
+  .s2 {
+    background: var(--forest);
+    color: var(--paper);
+    top: 130px; left: 190px;
+    transform: rotate(4deg);
+    z-index: 2;
+  }
+  .s3 {
+    background: var(--cream);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    top: 260px; left: 60px;
+    transform: rotate(-3deg);
+    z-index: 4;
+  }
+  .sticky-tag {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    opacity: 0.75;
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .note-cluster { height: 320px; margin-top: 20px; }
+  }
+
+  /* ---------- Section shared ---------- */
+  section { padding: 100px 32px; position: relative; }
+  .section-head { max-width: 640px; margin-bottom: 56px; }
+  .section-tag {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--mint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-head h2 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    line-height: 1.5;
+  }
+  .section-head p {
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+
+  /* ---------- How it works (peer loop, not numbered steps) ---------- */
+  .how {
+    background: var(--forest-deep);
+    color: var(--paper);
+  }
+  .how .section-tag { color: var(--marker); }
+  .how .section-head h2 { color: var(--paper); }
+  .how .section-head p { color: rgba(253,251,246,0.72); }
+
+  .loop {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    position: relative;
+  }
+  .loop-card {
+    background: rgba(253,251,246,0.06);
+    border: 1px solid rgba(253,251,246,0.14);
+    border-radius: 18px;
+    padding: 32px 26px;
+    position: relative;
+  }
+  .loop-role {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    padding: 5px 14px;
+    border-radius: 999px;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+  .role-teach { background: var(--marker); color: var(--forest-deep); }
+  .role-learn { background: var(--mint); color: var(--forest-deep); }
+  .role-both { background: rgba(253,251,246,0.16); color: var(--paper); }
+  .loop-card h3 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+  }
+  .loop-card p { font-size: 0.92rem; color: rgba(253,251,246,0.75); }
+  .loop-arrow {
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .loop { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Features ---------- */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .feature {
+    padding: 30px 26px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .feature:hover { border-color: var(--mint); transform: translateY(-3px); }
+  .feature-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .feature h3 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1.08rem;
+    margin-bottom: 8px;
+    color: var(--forest-deep);
+  }
+  .feature p { font-size: 0.9rem; color: var(--ink-soft); }
+  @media (max-width: 900px) {
+    .features-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Safety section ---------- */
+  .safety {
+    background: var(--cream);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .safety-inner {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .safety-visual {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 32px;
+  }
+  .age-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .age-row:last-child { border-bottom: none; }
+  .age-label {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    color: var(--forest-deep);
+  }
+  .age-badges { display: flex; gap: 8px; }
+  .badge {
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .badge-on { background: var(--forest); color: var(--paper); }
+  .badge-off { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+
+  .safety-list { display: flex; flex-direction: column; gap: 22px; }
+  .safety-item { display: flex; gap: 16px; }
+  .safety-item .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--marker);
+    margin-top: 10px;
+    flex-shrink: 0;
+  }
+  .safety-item h4 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1rem;
+    color: var(--forest-deep);
+    margin-bottom: 4px;
+  }
+  .safety-item p { font-size: 0.9rem; color: var(--ink-soft); }
+  @media (max-width: 900px) {
+    .safety-inner { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    text-align: center;
+    background: var(--forest);
+    color: var(--paper);
+    border-radius: 28px;
+    margin: 0 32px 100px;
+    padding: 80px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: "";
+    position: absolute;
+    width: 340px; height: 340px;
+    background: var(--marker);
+    opacity: 0.15;
+    border-radius: 50%;
+    top: -160px; right: -100px;
+  }
+  .cta h2 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    position: relative;
+  }
+  .cta p {
+    margin-top: 14px;
+    color: rgba(253,251,246,0.78);
+    position: relative;
+  }
+  .cta .hero-ctas { justify-content: center; margin-top: 32px; position: relative; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 40px 32px 60px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+  }
+  footer .logo { justify-content: center; margin-bottom: 12px; }
+
+  @media (max-width: 600px) {
+    section { padding: 64px 20px; }
+    .hero { padding: 56px 20px 56px; }
+    .cta { margin: 0 16px 64px; padding: 56px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">オシエール<span class="logo-dot">。</span></div>
+    <nav class="nav-links nav-mobile-hide">
+      <a href="#how">つかいかた</a>
+      <a href="#features">できること</a>
+      <a href="#safety">安心・安全</a>
+    </nav>
+    <a href="#start" class="nav-cta">はじめる</a>
+  </div>
+</header>
+
+<main class="wrap" style="max-width:none; padding:0;">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">10〜18歳のための学び場</span>
+        <h1 class="heading">教えることは、<br>いちばんの<span class="accent">学びかた</span>。</h1>
+        <p class="lead">オシエールは、同世代どうしで教えあい、学びあうピア学習プラットフォームです。わからないことを聞いて、わかることを教えて。その繰り返しが、いちばん力になる。</p>
+        <div class="hero-ctas">
+          <a href="#start" class="btn-primary">無料ではじめる</a>
+          <a href="#how" class="btn-secondary">つかいかたを見る</a>
+        </div>
+        <div class="hero-safety">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 5v6c0 5 3.4 9 8 11 4.6-2 8-6 8-11V5l-8-3z" fill="#6B8F7F"/></svg>
+          保護者・お子さま両方が安心できる設計です
+        </div>
+      </div>
+
+      <div class="note-cluster">
+        <div class="sticky s1">
+          <span class="sticky-tag">おしえる</span>
+          二次関数のグラフ、こう考えると分かりやすいよ！
+        </div>
+        <div class="sticky s2">
+          <span class="sticky-tag">おそわる</span>
+          英作文の添削、お願いできますか？
+        </div>
+        <div class="sticky s3">
+          <span class="sticky-tag">きろく</span>
+          今週、3人に教えて2人から教わった📝
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-tag">つかいかた</span>
+        <h2 class="heading">教える側にも、教わる側にも、<br>いつでも回れる。</h2>
+        <p>役割は固定されません。得意な科目では教える人に、苦手な科目では教わる人に。ひとつのアカウントで、両方の経験ができます。</p>
+      </div>
+      <div class="loop">
+        <div class="loop-card">
+          <span class="loop-role role-learn">きく</span>
+          <h3 class="heading">わからないことを投稿する</h3>
+          <p>教科・単元を選んで質問を投稿。テキストとホワイトボードで、図や式も書きながら聞けます。</p>
+        </div>
+        <div class="loop-card">
+          <span class="loop-role role-teach">こたえる</span>
+          <h3 class="heading">得意なことで力になる</h3>
+          <p>自分がわかる質問にこたえて教える。説明することで、自分の理解もさらに深まります。</p>
+        </div>
+        <div class="loop-card">
+          <span class="loop-role role-both">つづける</span>
+          <h3 class="heading">教え合いが積み重なる</h3>
+          <p>やりとりはルームに記録され、あとから見返せます。感謝やレビューも届きます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-tag">できること</span>
+        <h2 class="heading">学びやすさのための機能</h2>
+        <p>年齢やレベルに関係なく、安心して質問できる環境を用意しています。</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="#2D5A4F" stroke-width="1.8"/><path d="M7 20h10M12 18v2" stroke="#2D5A4F" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <h3>ホワイトボードで説明</h3>
+          <p>数式や図を手描きで共有。文章だけでは伝わりにくい内容も、描きながら教え合えます。</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 12h8M8 16h5" stroke="#2D5A4F" stroke-width="1.8" stroke-linecap="round"/><path d="M4 6h16v11H8l-4 3V6z" stroke="#2D5A4F" stroke-width="1.8"/></svg>
+          </div>
+          <h3>教科別のルーム</h3>
+          <p>科目・単元ごとにルームが分かれているので、探している質問や得意分野にすぐたどりつけます。</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.3L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-0.7L12 3z" stroke="#2D5A4F" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>教えた記録が残る</h3>
+          <p>教えた回数・教わった回数が記録され、続けるほど自分の学びの軌跡が見えるようになります。</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.4-9.5-9C1 8 3 4.5 6.5 4.5c2 0 3.4 1 5.5 3.3C14.1 5.5 15.5 4.5 17.5 4.5 21 4.5 23 8 21.5 12 19 16.6 12 21 12 21z" stroke="#2D5A4F" stroke-width="1.6"/></svg>
+          </div>
+          <h3>お礼とレビュー</h3>
+          <p>教えてもらったら、お礼とレビューを送信。感謝が可視化されることで、教える側の意欲にもつながります。</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#2D5A4F" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <h3>不適切な内容を検知</h3>
+          <p>NGワードや外部連絡先の共有を自動で検知し、やりとりの安全性を保ちます。</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="#2D5A4F" stroke-width="1.6"/><path d="M4 12c1.6-3.6 4.6-6 8-6s6.4 2.4 8 6c-1.6 3.6-4.6 6-8 6s-6.4-2.4-8-6z" stroke="#2D5A4F" stroke-width="1.6"/></svg>
+          </div>
+          <h3>報告・ブロック機能</h3>
+          <p>気になるやりとりはワンタップで報告・ブロック。すべてのやりとりはログとして記録されます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="safety" id="safety">
+    <div class="wrap safety-inner">
+      <div class="safety-visual">
+        <div class="age-row">
+          <span class="age-label">13歳未満</span>
+          <div class="age-badges">
+            <span class="badge badge-on">テキスト</span>
+            <span class="badge badge-on">ホワイトボード</span>
+            <span class="badge badge-off">音声・映像</span>
+          </div>
+        </div>
+        <div class="age-row">
+          <span class="age-label">13歳以上</span>
+          <div class="age-badges">
+            <span class="badge badge-on">テキスト</span>
+            <span class="badge badge-on">ホワイトボード</span>
+            <span class="badge badge-on">音声・映像</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="section-tag">安心・安全</span>
+        <h2 class="heading" style="margin-bottom:32px;">年齢に合わせた、<br>ちょうどいい安全設計。</h2>
+        <div class="safety-list">
+          <div class="safety-item">
+            <span class="dot"></span>
+            <div>
+              <h4>年齢に応じた機能制限</h4>
+              <p>13歳未満はテキストとホワイトボードのみ利用可能。13歳以上から音声・映像でのやりとりを解放します。</p>
+            </div>
+          </div>
+          <div class="safety-item">
+            <span class="dot"></span>
+            <div>
+              <h4>すべてのやりとりを記録</h4>
+              <p>メッセージはセッションログとして保存され、問題があった際にすぐさかのぼって確認できます。</p>
+            </div>
+          </div>
+          <div class="safety-item">
+            <span class="dot"></span>
+            <div>
+              <h4>ワンタップで報告・ブロック</h4>
+              <p>不安を感じたら、その場ですぐに報告・ブロックが可能。運営が内容を確認します。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta" id="start">
+    <h2 class="heading">今日の「わからない」を、<br>だれかの「わかった」に。</h2>
+    <p>登録は無料。まずは気になる教科のルームをのぞいてみましょう。</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">無料で登録する</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="logo">オシエール<span class="logo-dot">。</span></div>
+  <p>教えあい、学びあう。10代のためのピア学習プラットフォーム。</p>
+</footer>
+
+</body>
+</html>
